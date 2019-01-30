@@ -9,7 +9,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.ViewGroup;
 
 public class NoPaddingTextView extends AppCompatTextView {
     //日志标记
@@ -19,27 +18,46 @@ public class NoPaddingTextView extends AppCompatTextView {
     //绘制矩形
     private Rect rect;
     //默认宽度
-    private int layoutWidth = -3;
-    private int layoutHeight = -3;
+    private int layoutWidth = -1;
     //获得每行数据
     private String[] lineContents;
 
-
+    /**
+     * 构造方法
+     *
+     * @param context
+     */
     public NoPaddingTextView(Context context) {
         super(context);
         init();
     }
 
+    /**
+     * 构造方法
+     *
+     * @param context
+     * @param attrs
+     */
     public NoPaddingTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
+    /**
+     * 构造方法
+     *
+     * @param context
+     * @param attrs
+     * @param defStyleAttr
+     */
     public NoPaddingTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
+    /**
+     * 初始化方法
+     */
     private void init() {
         //声明画笔对象
         textPaint = new TextPaint();
@@ -69,56 +87,65 @@ public class NoPaddingTextView extends AppCompatTextView {
             //初始化布局
             initLayout(_layout);
             //设置布局区域
-            int[] _area = getWidthAndHeigt(layoutWidth,layoutHeight, _layout.getLineCount(),_lineHeight);
+            int[] _area = getWidthAndHeigt(widthMeasureSpec, heightMeasureSpec, layoutWidth, _layout.getLineCount(), _lineHeight);
             //设置布局
-            setMeasuredDimension(_area[0],_area[1]);
+            setMeasuredDimension(_area[0], _area[1]);
         }
     }
 
     /**
      * 初始化化布局高度
+     *
      * @param _layout
      */
     private void initLayout(Layout _layout) {
         //获得布局大小
-        if (layoutWidth < -2) {
+        if (layoutWidth < 0) {
+            //获取第一次测量数据
             layoutWidth = _layout.getWidth();
-        }
-        if(layoutHeight < -2){
-            layoutHeight = _layout.getHeight();
         }
     }
 
     /**
      * 获取布局数据
+     *
+     * @param pWidthMeasureSpec
+     * @param pHeightMeasureSpec
      * @param pWidth
-     * @param pHeight
      * @return 返回宽高数组
      */
-    private int[] getWidthAndHeigt(int pWidth, int pHeight,int pLineCount, int pLineHeight){
-        int[] _area = {
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        };
-        //判断布局是否适配
-        if(pWidth == ViewGroup.LayoutParams.MATCH_PARENT && pHeight == ViewGroup.LayoutParams.MATCH_PARENT){
-            _area[0] = ViewGroup.LayoutParams.MATCH_PARENT;
-            _area[1] = ViewGroup.LayoutParams.MATCH_PARENT;
-        }else if(pWidth == ViewGroup.LayoutParams.MATCH_PARENT && pHeight == ViewGroup.LayoutParams.WRAP_CONTENT) {
-            _area[0] = ViewGroup.LayoutParams.MATCH_PARENT;
-            _area[1] = ViewGroup.LayoutParams.WRAP_CONTENT;
-        }else if(pWidth == ViewGroup.LayoutParams.WRAP_CONTENT && pHeight == ViewGroup.LayoutParams.WRAP_CONTENT){
-            _area[0] = ViewGroup.LayoutParams.WRAP_CONTENT;
-            _area[1] = ViewGroup.LayoutParams.WRAP_CONTENT;
-        }else{
-            _area[0] = pWidth-rect.left;
-            _area[1] = pLineHeight * pLineCount;
+    private int[] getWidthAndHeigt(int pWidthMeasureSpec, int pHeightMeasureSpec, int pWidth, int pLineCount, int pLineHeight) {
+        int _widthMode = MeasureSpec.getMode(pWidthMeasureSpec);   //获取宽的模式
+        int _heightMode = MeasureSpec.getMode(pHeightMeasureSpec); //获取高的模式
+        int _widthSize = MeasureSpec.getSize(pWidthMeasureSpec);   //获取宽的尺寸
+        int _heightSize = MeasureSpec.getSize(pHeightMeasureSpec); //获取高的尺寸
+        //声明控件尺寸
+        int _width;
+        int _height;
+        //判断模式
+        if (_widthMode == MeasureSpec.EXACTLY) {
+            //如果match_parent或者具体的值，直接赋值
+            _width = _widthSize;
+        } else {
+            _width = pWidth - rect.left;
         }
+        //高度跟宽度处理方式一样
+        if (_heightMode == MeasureSpec.EXACTLY) {
+            _height = _heightSize;
+        } else {
+            _height = pLineHeight * pLineCount;
+        }
+        //初始化宽高数组
+        int[] _area = {
+                _width,
+                _height
+        };
         return _area;
     }
 
     /**
      * 获取行数据
+     *
      * @param _layout 文本布局对象（注：该布局其实使用的是Layout子类对象StaticLayout）
      */
     private void getTextContentData(Layout _layout) {

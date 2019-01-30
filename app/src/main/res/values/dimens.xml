@@ -42,4 +42,6 @@
     <dimen name="text_size_38sp">38sp</dimen>
     <dimen name="text_size_39sp">39sp</dimen>
     <dimen name="text_size_40sp">40sp</dimen>
+    <dimen name="x_200dp">200dp</dimen>
+    <dimen name="y_200dp">200dp</dimen>
 </resources>

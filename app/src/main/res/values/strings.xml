@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NoBroderTextView</string>
+    <string name="test_content_1">测试文本:\nABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcefghijklmnopqrstuvwxyz</string>
+    <string name="test_content_2">测试文本:\n一二三四五六七八九十\n甲乙丙丁午己庚辛</string>
 </resources>

@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-</android.support.constraint.ConstraintLayout>
+        tools:context=".MainActivity"
+        android:background="@color/color_000000">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+            <com.liming.nobroder.nopaddingtextview.views.NoPaddingTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_ff0000"
+                    android:textColor="@color/color_ffff00"
+                    android:text="@string/test_content_1"
+                    android:textSize="@dimen/text_size_17sp"/>
+            <com.liming.nobroder.nopaddingtextview.views.NoPaddingTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_ff00ff"
+                    android:textColor="@color/color_000000"
+                    android:text="@string/test_content_2"
+                    android:textSize="@dimen/text_size_17sp"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

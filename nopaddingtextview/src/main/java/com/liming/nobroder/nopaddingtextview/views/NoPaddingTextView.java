@@ -10,6 +10,10 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 
+/**
+ * 无内边距TextView控件
+ * @author liming Create date ： 2019/01/30
+ */
 public class NoPaddingTextView extends AppCompatTextView {
     //日志标记
     private final String TAG = NoPaddingTextView.class.getSimpleName();

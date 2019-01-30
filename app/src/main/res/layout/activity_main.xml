@@ -32,11 +32,13 @@
                     android:background="@color/color_0f77f0">
                 <com.liming.nobroder.nopaddingtextview.views.NoPaddingTextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@color/color_ff0000"
                         android:textColor="@color/color_ffff00"
                         android:text="@string/test_content_3"
-                        android:textSize="@dimen/text_size_17sp"/>
+                        android:textSize="@dimen/text_size_17sp"
+                        android:lineSpacingExtra="@dimen/y_5dp"
+                        android:lineSpacingMultiplier="2"/>
             </FrameLayout>
             <com.liming.nobroder.nopaddingtextview.views.NoPaddingTextView
                     android:id="@+id/nptv_name_1"
@@ -44,6 +46,13 @@
                     android:layout_height="wrap_content"
                     android:background="@color/color_ff0000"
                     android:textColor="@color/color_ffff00"
+                    android:textSize="@dimen/text_size_17sp"/>
+            <com.liming.nobroder.nopaddingtextview.views.NoPaddingTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_ff00ff"
+                    android:textColor="@color/color_000000"
+                    android:text="@string/test_content_4"
                     android:textSize="@dimen/text_size_17sp"/>
         </LinearLayout>
     </ScrollView>

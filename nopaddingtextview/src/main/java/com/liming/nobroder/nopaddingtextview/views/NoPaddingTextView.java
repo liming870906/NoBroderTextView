@@ -21,16 +21,10 @@ public class NoPaddingTextView extends AppCompatTextView {
     private int layoutWidth = -1;
     //获得每行数据
     private String[] lineContents;
-
-    /**
-     * 构造方法
-     *
-     * @param context
-     */
-    public NoPaddingTextView(Context context) {
-        super(context);
-        init();
-    }
+    //获取行间距的额外空间
+    private float line_space_height = 0.0f;
+    //获取行间距乘法器
+    private float line_space_height_mult = 1.0f;
 
     /**
      * 构造方法
@@ -40,7 +34,7 @@ public class NoPaddingTextView extends AppCompatTextView {
      */
     public NoPaddingTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context, attrs);
     }
 
     /**
@@ -52,17 +46,21 @@ public class NoPaddingTextView extends AppCompatTextView {
      */
     public NoPaddingTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context, attrs);
     }
 
     /**
      * 初始化方法
      */
-    private void init() {
+    private void init(Context context, AttributeSet attrs) {
         //声明画笔对象
         textPaint = new TextPaint();
         //声明矩形绘制对象
         rect = new Rect();
+        //获得行间距额外数据
+        line_space_height = getLineSpacingExtra();
+        //获得行间距方法器
+        line_space_height_mult = getLineSpacingMultiplier();
     }
 
     @Override
@@ -133,7 +131,11 @@ public class NoPaddingTextView extends AppCompatTextView {
         if (_heightMode == MeasureSpec.EXACTLY) {
             _height = _heightSize;
         } else {
-            _height = pLineHeight * pLineCount;
+            if(pLineCount > 1){
+                _height = pLineHeight * pLineCount + (int) (line_space_height * line_space_height_mult * (pLineCount -1));
+            }else{
+                _height = pLineHeight * pLineCount;
+            }
         }
         //初始化宽高数组
         int[] _area = {
@@ -161,13 +163,18 @@ public class NoPaddingTextView extends AppCompatTextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        //行高
+        float _line_height = -rect.top + rect.bottom;
+        //行间距
+        float _line_space = line_space_height * line_space_height_mult;
         //循环获取每行数据内容
         for (int i = 0; i < lineContents.length; i++) {
             //获得数据
             String _drawContent = lineContents[i];
+            //显示日志
             Log.e(TAG, "LINE[" + (i + 1) + "]=" + _drawContent);
             //绘制每行数据
-            canvas.drawText(_drawContent, 0, -rect.top + (-rect.top + rect.bottom) * i, textPaint);
+            canvas.drawText(_drawContent, 0, -rect.top + (_line_height + _line_space) * i, textPaint);
         }
     }
 }

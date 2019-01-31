@@ -5,7 +5,7 @@
      <br/>
      <font color="#dd0000" size = "5" face="微软雅黑">注意:控件NoPaddingTextView不支持动态声明</font>
 ## 效果图
-<img src="./images/a.jpg" width = "360" height = "640" div align=right />
+<img src="./images/a.jpg" width = "360" height = "640" div align=left />
 
 ## 静态属性
 ```xml

@@ -58,7 +58,7 @@ public class NoPaddingTextView extends AppCompatTextView {
      */
     private void init(Context context, AttributeSet attrs) {
         //声明画笔对象
-        textPaint = new TextPaint();
+        textPaint = getPaint();
         //声明矩形绘制对象
         rect = new Rect();
         //获得行间距额外数据
